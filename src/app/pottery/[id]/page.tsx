@@ -39,8 +39,7 @@ function DetailItem({ icon: Icon, label, value }: { icon: React.ElementType, lab
 
 
 export default function PotteryDetailPage({ params }: { params: { id: string } }) {
-  // Extract id from params outside useEffect
-  const pieceId = params.id;
+  // Extract id from params INSIDE useEffect to avoid direct access warning
 
   // Since auth is bypassed, user and userId will always be populated, loading is false
   const { user, userId } = useAuth();
@@ -51,13 +50,15 @@ export default function PotteryDetailPage({ params }: { params: { id: string } }
 
   useEffect(() => {
     // Fetch piece directly using hardcoded userId
+    // Access params.id *inside* useEffect to avoid direct access warning
+    const currentPieceId = params.id;
     if (userId) {
       const fetchPiece = async () => {
         setIsLoadingPiece(true);
         // setAccessDenied(false); // No longer needed
         try {
-          // Use the extracted pieceId variable here
-          const fetchedPiece = await getPieceById(pieceId, userId);
+          // Use the currentPieceId variable here
+          const fetchedPiece = await getPieceById(currentPieceId, userId);
 
           if (!fetchedPiece) {
             setPiece(null); // Piece doesn't exist or doesn't belong to hardcoded user
@@ -78,8 +79,8 @@ export default function PotteryDetailPage({ params }: { params: { id: string } }
        setIsLoadingPiece(false);
        setPiece(null);
     }
-    // Dependency array includes the extracted pieceId
-  }, [userId, pieceId]);
+    // Depend directly on params.id
+  }, [userId, params.id]);
 
   // Show loading state only while piece is loading
   if (isLoadingPiece) {
