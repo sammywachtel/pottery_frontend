@@ -1,5 +1,8 @@
 import type { Piece, Category } from '@/types/pottery';
 
+// Placeholder user ID for mock data. In a real app, this would come from auth.
+const MOCK_USER_ID = 'mockUserId123';
+
 const categories: Category[] = [
   { id: 'cat1', name: 'Vases' },
   { id: 'cat2', name: 'Bowls' },
@@ -10,10 +13,9 @@ const categories: Category[] = [
 export const mockPieces: Piece[] = [
   {
     id: 'p1',
+    userId: MOCK_USER_ID,
     name: 'Terracotta Sunrise Vase',
     description: 'A handcrafted terracotta vase, inspired by the warm hues of a sunrise. Perfect for medium-sized bouquets or as a standalone art piece.',
-    // Removed status: 'Available',
-    // Removed price: 75.00,
     height: 25, // cm
     width: 12,  // cm
     depth: 12,  // cm
@@ -24,10 +26,9 @@ export const mockPieces: Piece[] = [
   },
   {
     id: 'p2',
+    userId: MOCK_USER_ID,
     name: 'Earthenware Serving Bowl',
     description: 'Large earthenware bowl with a rustic beige finish, ideal for serving salads or fruits. Features subtle hand-carved patterns.',
-    // Removed status: 'Available',
-    // Removed price: 90.00,
     height: 10,
     width: 30,
     depth: 30,
@@ -38,10 +39,9 @@ export const mockPieces: Piece[] = [
   },
   {
     id: 'p3',
+    userId: 'anotherMockUserId456', // Assign some pieces to a different user for testing
     name: 'Forest Whisper Mug Set',
     description: 'Set of two stoneware mugs, glazed in deep forest green with a comfortable, ergonomic handle. Perfect for your morning coffee or tea.',
-    // Removed status: 'Sold',
-    // Removed price: 60.00,
     height: 10,
     width: 9,
     depth: 12, // including handle
@@ -52,9 +52,9 @@ export const mockPieces: Piece[] = [
   },
   {
     id: 'p4',
+    userId: MOCK_USER_ID,
     name: 'Abstract Clay Sculpture "Cycles"',
     description: 'A unique decorative sculpture exploring themes of nature and continuity. Finished with a matte warm gray glaze.',
-    // Removed status: 'Not For Sale',
     height: 40,
     width: 20,
     depth: 15,
@@ -65,10 +65,9 @@ export const mockPieces: Piece[] = [
   },
   {
     id: 'p5',
+    userId: MOCK_USER_ID,
     name: 'Minimalist Beige Planter',
     description: 'A sleek, minimalist planter with a smooth beige finish, perfect for small to medium-sized indoor plants. Includes a drainage hole and matching saucer.',
-    // Removed status: 'Available',
-    // Removed price: 45.00,
     height: 15,
     width: 16,
     depth: 16,
@@ -79,10 +78,9 @@ export const mockPieces: Piece[] = [
   },
   {
     id: 'p6',
+    userId: 'anotherMockUserId456',
     name: 'Burnt Sienna Coffee Pour Over',
     description: 'A stylish pour-over coffee maker in a striking burnt sienna glaze. Designed for a perfect brew and a beautiful kitchen accent.',
-    // Removed status: 'Reserved',
-    // Removed price: 65.00,
     height: 18,
     width: 13,
     depth: 13,

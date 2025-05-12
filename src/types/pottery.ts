@@ -3,14 +3,11 @@ export interface Category {
   name: string;
 }
 
-// Removed PieceStatus type as items are not for sale.
-
 export interface Piece {
   id: string;
+  userId: string; // Added to associate piece with a user
   name: string;
   description: string;
-  // Removed status field
-  // Removed price field
   height?: number; // in cm
   width?: number;  // in cm
   depth?: number;  // in cm
