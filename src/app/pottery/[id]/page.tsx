@@ -39,7 +39,8 @@ function DetailItem({ icon: Icon, label, value }: { icon: React.ElementType, lab
 
 
 export default function PotteryDetailPage({ params }: { params: { id: string } }) {
-  // Extract id from params INSIDE useEffect to avoid direct access warning
+  // Extract id from params outside useEffect
+  const pieceId = params.id;
 
   // Since auth is bypassed, user and userId will always be populated, loading is false
   const { user, userId } = useAuth();
@@ -49,16 +50,14 @@ export default function PotteryDetailPage({ params }: { params: { id: string } }
   // const [accessDenied, setAccessDenied] = useState(false); // No longer needed
 
   useEffect(() => {
-    // Fetch piece directly using hardcoded userId
-    // Access params.id *inside* useEffect to avoid direct access warning
-    const currentPieceId = params.id;
-    if (userId) {
+    // Fetch piece directly using hardcoded userId and pieceId from props
+    if (userId && pieceId) { // Ensure both userId and pieceId are available
       const fetchPiece = async () => {
         setIsLoadingPiece(true);
         // setAccessDenied(false); // No longer needed
         try {
-          // Use the currentPieceId variable here
-          const fetchedPiece = await getPieceById(currentPieceId, userId);
+          // Use the pieceId variable derived from props
+          const fetchedPiece = await getPieceById(pieceId, userId);
 
           if (!fetchedPiece) {
             setPiece(null); // Piece doesn't exist or doesn't belong to hardcoded user
@@ -73,14 +72,19 @@ export default function PotteryDetailPage({ params }: { params: { id: string } }
         }
       };
       fetchPiece();
-    } else {
+    } else if (!userId) {
        // This case should not happen with hardcoded auth
        console.error("User ID not available despite bypassed login.");
        setIsLoadingPiece(false);
        setPiece(null);
+    } else {
+        // Handle case where pieceId might be missing (though unlikely from routing)
+        console.error("Piece ID is missing.");
+        setIsLoadingPiece(false);
+        setPiece(null);
     }
-    // Depend directly on params.id
-  }, [userId, params.id]);
+    // Depend on userId and the stable pieceId variable from props
+  }, [userId, pieceId]);
 
   // Show loading state only while piece is loading
   if (isLoadingPiece) {
@@ -143,9 +147,9 @@ export default function PotteryDetailPage({ params }: { params: { id: string } }
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Dimensions (cm)</p>
                   <p className="text-base text-foreground">
-                    {piece.height && `H: ${piece.height} `}
-                    {piece.width && `W: ${piece.width} `}
-                    {piece.depth && `D: ${piece.depth}`}
+                    {piece.height ? `H: ${piece.height} ` : ''}
+                    {piece.width ? `W: ${piece.width} ` : ''}
+                    {piece.depth ? `D: ${piece.depth}` : ''}
                   </p>
                 </div>
               </div>
