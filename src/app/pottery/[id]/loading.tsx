@@ -20,8 +20,8 @@ export default function LoadingPotteryDetail() {
         {/* Details Skeleton */}
         <div className="space-y-6">
           <Skeleton className="h-10 w-3/4" /> {/* Title */}
-          <Skeleton className="h-8 w-24" /> {/* Badge */}
-          
+          {/* Removed Badge Skeleton */}
+
           <div className="space-y-2"> {/* Description */}
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
@@ -29,15 +29,16 @@ export default function LoadingPotteryDetail() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(3)].map((_, i) => ( // Adjusted count to 3 (Materials, Category, Dimensions/Date)
               <div key={i} className="space-y-2">
                 <Skeleton className="h-4 w-20" /> {/* Label */}
                 <Skeleton className="h-5 w-32" /> {/* Value */}
               </div>
             ))}
+             {/* Removed Price Skeleton */}
           </div>
-          
-          <Skeleton className="h-12 w-full mt-4" /> {/* Button */}
+
+          {/* Removed Button Skeleton */}
         </div>
       </div>
     </div>

@@ -3,14 +3,14 @@ export interface Category {
   name: string;
 }
 
-export type PieceStatus = "Available" | "Sold" | "Reserved" | "Not For Sale";
+// Removed PieceStatus type as items are not for sale.
 
 export interface Piece {
   id: string;
   name: string;
   description: string;
-  status: PieceStatus;
-  price?: number;
+  // Removed status field
+  // Removed price field
   height?: number; // in cm
   width?: number;  // in cm
   depth?: number;  // in cm

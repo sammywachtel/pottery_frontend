@@ -1,12 +1,12 @@
 import { getPieceById, getPieces } from '@/services/potteryService';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+// Removed Badge and Button imports as they are no longer used for status/inquiry
 import Link from 'next/link';
-import { ArrowLeft, Ruler, Palette, Tag, CircleDollarSign, CalendarDays, ShapesIcon } from 'lucide-react';
+import { ArrowLeft, Ruler, Palette, Tag, CalendarDays, ShapesIcon } from 'lucide-react'; // Removed CircleDollarSign
 import type { Metadata, ResolvingMetadata } from 'next';
 import type { Piece } from '@/types/pottery';
+import { Button } from '@/components/ui/button'; // Kept for Back button
 
 type Props = {
   params: { id: string };
@@ -64,7 +64,7 @@ export default async function PotteryDetailPage({ params }: Props) {
     notFound();
   }
 
-  const displayPrice = piece.price !== undefined && piece.status !== "Sold" && piece.status !== "Not For Sale";
+  // Removed displayPrice logic
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -101,23 +101,15 @@ export default async function PotteryDetailPage({ params }: Props) {
         {/* Details */}
         <div className="space-y-6">
           <h1 className="text-3xl lg:text-4xl font-bold text-foreground">{piece.name}</h1>
-          
-          <Badge 
-            variant={piece.status === 'Available' ? 'secondary' : piece.status === 'Sold' ? 'destructive' : 'outline'}
-            className={`text-sm px-3 py-1 ${piece.status === 'Available' ? 'bg-green-100 text-green-800 border-green-300 dark:bg-green-800/30 dark:text-green-300 dark:border-green-700' : 
-                        piece.status === 'Sold' ? 'bg-red-100 text-red-800 border-red-300 dark:bg-red-800/30 dark:text-red-300 dark:border-red-700' :
-                        piece.status === 'Reserved' ? 'bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-800/30 dark:text-yellow-300 dark:border-yellow-700' :
-                        'bg-gray-100 text-gray-800 border-gray-300 dark:bg-gray-700/30 dark:text-gray-300 dark:border-gray-600'}`}
-          >
-            {piece.status}
-          </Badge>
+
+          {/* Removed Status Badge */}
 
           <p className="text-base text-muted-foreground leading-relaxed">{piece.description}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t">
             <DetailItem icon={Palette} label="Materials" value={piece.materials} />
             <DetailItem icon={Tag} label="Category" value={piece.category.name} />
-            
+
             { (piece.height || piece.width || piece.depth) &&
               <div className="flex items-start space-x-3">
                 <Ruler className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
@@ -132,24 +124,18 @@ export default async function PotteryDetailPage({ params }: Props) {
               </div>
             }
 
-            {displayPrice && (
-              <DetailItem icon={CircleDollarSign} label="Price" value={`$${piece.price?.toFixed(2)}`} />
-            )}
+            {/* Removed Price DetailItem */}
 
             {piece.creationDate && (
-              <DetailItem 
-                icon={CalendarDays} 
-                label="Created On" 
-                value={new Date(piece.creationDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })} 
+              <DetailItem
+                icon={CalendarDays}
+                label="Created On"
+                value={new Date(piece.creationDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
               />
             )}
           </div>
-          
-          {piece.status === "Available" && displayPrice && (
-            <Button size="lg" className="w-full mt-4">
-              Inquire About This Piece
-            </Button>
-          )}
+
+          {/* Removed Inquiry Button */}
         </div>
       </div>
     </div>
