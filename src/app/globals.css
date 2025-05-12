@@ -2,79 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 40 52% 95%; /* Lighter, slightly desaturated beige */
+    --foreground: 25 15% 25%; /* Dark warm gray */
+    --card: 40 60% 98%; /* Very light beige, almost off-white */
+    --card-foreground: 25 15% 25%;
+    --popover: 40 60% 98%;
+    --popover-foreground: 25 15% 25%;
+    --primary: 13 70% 62%; /* Burnt Sienna #E07A5F */
+    --primary-foreground: 20 0% 98%; /* Off-white */
+    --secondary: 25 55% 88%; /* Lighter terracotta/peach */
+    --secondary-foreground: 13 50% 40%; /* Darker terracotta for text on secondary */
+    --muted: 35 40% 92%; /* Soft, light earthy gray */
+    --muted-foreground: 25 15% 45%; /* Medium warm gray */
+    --accent: 30 60% 85%; /* A slightly different earthy tone for accent, could be a soft clay color */
+    --accent-foreground: 25 15% 30%; /* Dark text for this accent */
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 35 30% 88%; /* Light earthy border */
+    --input: 35 30% 88%;
+    --ring: 13 70% 62%; /* Burnt Sienna for ring */
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 35 40% 92%; /* Soft, light earthy gray for sidebar */
+    --sidebar-foreground: 25 15% 30%; /* Dark text for sidebar */
+    --sidebar-primary: 13 70% 62%; /* Burnt Sienna for sidebar primary elements */
+    --sidebar-primary-foreground: 20 0% 98%;
+    --sidebar-accent: 25 55% 88%; /* Lighter terracotta/peach for sidebar accent */
+    --sidebar-accent-foreground: 13 50% 40%;
+    --sidebar-border: 35 30% 80%; /* Slightly darker earthy border for sidebar */
+    --sidebar-ring: 13 70% 62%;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 25 15% 10%; /* Very dark, slightly warm gray */
+    --foreground: 40 40% 90%; /* Light beige for text */
+    --card: 25 15% 15%; /* Dark warm gray for cards */
+    --card-foreground: 40 40% 90%;
+    --popover: 25 15% 15%;
+    --popover-foreground: 40 40% 90%;
+    --primary: 13 70% 68%; /* Slightly lighter/brighter Burnt Sienna for dark mode */
+    --primary-foreground: 20 0% 98%;
+    --secondary: 20 30% 25%; /* Muted dark terracotta */
+    --secondary-foreground: 30 40% 80%; /* Lighter text for dark secondary */
+    --muted: 25 15% 22%; /* Dark muted gray */
+    --muted-foreground: 35 25% 65%; /* Lighter muted text */
+    --accent: 30 40% 30%; /* Dark earthy accent */
+    --accent-foreground: 40 40% 85%;
+    --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --border: 25 15% 25%; /* Darker border */
+    --input: 25 15% 25%;
+    --ring: 13 70% 68%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 25 15% 12%; /* Darker base for sidebar */
+    --sidebar-foreground: 40 40% 85%; /* Lighter text for sidebar */
+    --sidebar-primary: 13 70% 68%; /* Burnt Sienna for dark sidebar primary */
+    --sidebar-primary-foreground: 20 0% 98%;
+    --sidebar-accent: 20 30% 28%; /* Muted dark terracotta for sidebar accent */
+    --sidebar-accent-foreground: 30 40% 80%;
+    --sidebar-border: 25 15% 22%;
+    --sidebar-ring: 13 70% 68%;
   }
 }
 
