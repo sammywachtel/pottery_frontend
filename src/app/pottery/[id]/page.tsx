@@ -1,7 +1,7 @@
 // src/app/pottery/[id]/page.tsx
 'use client'; // Required for hooks
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getPieceById } from '@/services/potteryService'; // getPieces no longer needed here
 import Image from 'next/image';
 import { notFound } from 'next/navigation'; // useRouter no longer needed for redirection
@@ -39,8 +39,9 @@ function DetailItem({ icon: Icon, label, value }: { icon: React.ElementType, lab
 
 
 export default function PotteryDetailPage({ params }: { params: { id: string } }) {
-  // Extract id from params outside useEffect
-  const pieceId = params.id;
+  // Unwrap params Promise with React.use() before accessing properties
+  const unwrappedParams = React.use(params);
+  const pieceId = unwrappedParams.id;
 
   // Since auth is bypassed, user and userId will always be populated, loading is false
   const { user, userId } = useAuth();
