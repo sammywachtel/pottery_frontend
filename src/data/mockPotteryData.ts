@@ -3,14 +3,16 @@ import type { Piece, Category } from '@/types/pottery';
 // Placeholder user ID for mock data. In a real app, this would come from auth.
 const MOCK_USER_ID = 'mockUserId123';
 
-const categories: Category[] = [
+export const categories: Category[] = [
   { id: 'cat1', name: 'Vases' },
   { id: 'cat2', name: 'Bowls' },
   { id: 'cat3', name: 'Mugs' },
   { id: 'cat4', name: 'Decorative' },
+  { id: 'cat5', name: 'Planters' },
+  { id: 'cat6', name: 'Kitchenware' },
 ];
 
-export const mockPieces: Piece[] = [
+export let mockPieces: Piece[] = [
   {
     id: 'p1',
     userId: MOCK_USER_ID,
@@ -72,7 +74,7 @@ export const mockPieces: Piece[] = [
     width: 16,
     depth: 16,
     materials: 'Stoneware, Matte beige glaze',
-    category: categories[3], // Decorative (or could be a new 'Planters' category)
+    category: categories[4], // Planters
     imageUrls: ['https://picsum.photos/seed/p5_1/600/800', 'https://picsum.photos/seed/p5_2/600/800', 'https://picsum.photos/seed/p5_3/600/800'],
     creationDate: '2023-10-01T00:00:00.000Z',
   },
@@ -85,7 +87,7 @@ export const mockPieces: Piece[] = [
     width: 13,
     depth: 13,
     materials: 'Porcelain, Burnt sienna glaze',
-    category: categories[1], // Bowls (or 'Kitchenware')
+    category: categories[5], // Kitchenware
     imageUrls: ['https://picsum.photos/seed/p6_1/600/800'],
     creationDate: '2023-09-12T00:00:00.000Z',
   },

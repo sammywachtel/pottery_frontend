@@ -2,65 +2,94 @@
 'use client'; // Required for hooks (useAuth, useState, useEffect)
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { getPieces } from '@/services/potteryService';
 import { PotteryGrid } from '@/components/pottery/PotteryGrid';
-import { useAuth } from '@/context/AuthContext'; // Import useAuth
-// import { useRouter } from 'next/navigation'; // No longer needed for redirection
+import { useAuth } from '@/context/AuthContext';
 import type { Piece } from '@/types/pottery';
-import Loading from './loading'; // Import the loading component
+import Loading from './loading';
+import { Button } from '@/components/ui/button';
+import { PlusCircle } from 'lucide-react';
 
 export default function HomePage() {
-  // Since auth is bypassed, user and userId will always be populated, loading is always false
   const { user, userId } = useAuth();
-  // const router = useRouter(); // No longer needed
   const [pieces, setPieces] = useState<Piece[]>([]);
   const [isLoadingPieces, setIsLoadingPieces] = useState(true);
 
   useEffect(() => {
-    // Fetch pieces directly since user is assumed logged in
     if (userId) {
       const fetchPieces = async () => {
         setIsLoadingPieces(true);
         try {
-          // Pass the hardcoded userId from context to fetch the correct pieces
           const userPieces = await getPieces(userId);
           setPieces(userPieces);
         } catch (error) {
           console.error("Failed to fetch pottery pieces:", error);
-          // Handle error state if needed
         } finally {
           setIsLoadingPieces(false);
         }
       };
       fetchPieces();
     } else {
-        // This case should technically not happen with hardcoded auth, but good practice
         console.error("User ID not available despite bypassed login.");
         setIsLoadingPieces(false);
         setPieces([]);
     }
-    // Dependency array simplified as user/userId are constant now
   }, [userId]);
 
-  // Show loading state only while pieces are loading
-  if (isLoadingPieces) {
+  if (isLoadingPieces && !user) { // Show loading only if user is not yet determined or pieces are loading
     return <Loading />;
   }
+  
+  if (!user) { // If user is null (not logged in), prompt to login or show minimal content
+      // This state should not be reached with hardcoded auth, but good for future real auth
+    return (
+        <div className="text-center py-10">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Welcome to Earthen Hub</h1>
+            <p className="text-lg text-muted-foreground mb-8">Please log in to view and manage your pottery collection.</p>
+            {/* The login page will handle the bypassed auth message */}
+            <Button asChild>
+                <Link href="/login">Go to Login</Link>
+            </Button>
+        </div>
+    );
+  }
 
-  // User is always logged in (as admin)
+  // User is logged in (as admin or actual user in future)
   return (
     <div className="space-y-8">
       <section aria-labelledby="pottery-showcase-title">
-        <h1 id="pottery-showcase-title" className="text-3xl font-bold tracking-tight text-center mb-8 sm:text-4xl">
-          Welcome, Admin! {/* Display generic or admin welcome */}
-        </h1>
-        <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-          Explore your collection of unique, handcrafted pottery.
-        </p>
-        {pieces.length > 0 ? (
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+          <div className="text-center sm:text-left">
+            <h1 id="pottery-showcase-title" className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Welcome, {user.email || 'Admin'}!
+            </h1>
+            <p className="text-lg text-muted-foreground mt-2 max-w-2xl">
+              Explore your collection of unique, handcrafted pottery.
+            </p>
+          </div>
+          <Button asChild size="lg">
+            <Link href="/pottery/new">
+              <PlusCircle className="mr-2 h-5 w-5" />
+              Add New Piece
+            </Link>
+          </Button>
+        </div>
+        
+        {isLoadingPieces ? (
+            <Loading />
+        ) : pieces.length > 0 ? (
           <PotteryGrid pieces={pieces} />
         ) : (
-          <p className="text-center text-muted-foreground">You haven't added any pottery pieces yet.</p>
+          <div className="text-center py-10">
+            <p className="text-xl text-muted-foreground mb-6">You haven&apos;t added any pottery pieces yet.</p>
+            <Button asChild size="lg">
+              <Link href="/pottery/new">
+                <PlusCircle className="mr-2 h-5 w-5" />
+                Create Your First Piece
+              </Link>
+            </Button>
+          </div>
         )}
       </section>
     </div>
