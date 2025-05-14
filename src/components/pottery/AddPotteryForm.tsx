@@ -57,6 +57,9 @@ export function AddPotteryForm() {
       materials: '',
       categoryId: '',
       images: [],
+      height: '', // Initialize as empty string
+      width: '',  // Initialize as empty string
+      depth: '',  // Initialize as empty string
     },
   });
 
@@ -142,9 +145,9 @@ export function AddPotteryForm() {
       materials: data.materials,
       categoryId: data.categoryId,
       imageUrls: imagePreviews, // Pass the data URIs
-      height: data.height ? Number(data.height) : undefined,
-      width: data.width ? Number(data.width) : undefined,
-      depth: data.depth ? Number(data.depth) : undefined,
+      height: data.height === '' ? undefined : Number(data.height),
+      width: data.width === '' ? undefined : Number(data.width),
+      depth: data.depth === '' ? undefined : Number(data.depth),
     };
 
     try {
@@ -317,9 +320,9 @@ export function AddPotteryForm() {
                     <Image
                       src={previewUrl}
                       alt={`Preview ${index + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
+                      fill // Changed from layout="fill" objectFit="cover"
+                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                      className="rounded-md object-cover"
                       data-ai-hint="pottery preview"
                     />
                     <Button
